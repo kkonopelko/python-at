@@ -13,7 +13,7 @@ If you do not use venv for a long time and want to update libraries it is recomm
 
 - Deactivate your venv (at the end of working with proj, exit): `deactivate`
 
-4. Install dependencies from requirements.txt file for newly created venv: `pip install -r requirements.txt`
+. Install dependencies from requirements.txt file for newly created venv: `pip install -r requirements.txt`
 
 
 ### Pip commands:
