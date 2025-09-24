@@ -1,6 +1,4 @@
-import string
 import pytest
-import random
 from api.error_messages import *
 from api.clients.pet_client import *
 from api.models.pet_status import * 
