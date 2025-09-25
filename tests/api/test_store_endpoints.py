@@ -3,7 +3,8 @@ import pytest
 from api.error_messages import *
 from api.clients.store_client import *
 
-@pytest.mark.category_name("API")
+@pytest.mark.api
+@pytest.mark.regression
 class TestStoreEndpoints:
 
     # POST /store/order

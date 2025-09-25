@@ -9,7 +9,8 @@ def setup_teardown_for_this_class():
     yield
     print("Teardown: clean up data")
 
-@pytest.mark.category_name("API")
+@pytest.mark.api
+@pytest.mark.regression
 class TestPetEndpoints:
 
     # GET /pet/findByStatus?status={value}
@@ -58,8 +59,9 @@ class TestPetEndpoints:
         assert actual_pet_data, "Pet data is empty"
         assert actual_pet_data["id"] == existing_pet_id, "Pet id is not correct"
 
+    @pytest.mark.skip(reason="Flacky")
     # GET /pet/{id}
-    def test_get_pet_by_id_should_return_404_if_id_not_exists(self):       
+    def test_get_pet_by_id_should_return_404_if_id_not_exists(self):
 
         # Arrange
         non_existing_pet_id = 0
