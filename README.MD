@@ -25,3 +25,4 @@ Install [Python latest version](https://www.python.org/downloads/)
 2. Run tests: `python -m pytest -v` or `pytest`
 - run specific test: `pytest -v tests/api/test_product_endpoints.py::test_get_all_products_should_return_200`
 - run tests from 1 file (fixture): `pytest -v tests/api/test_product_endpoints.py::TestProductEndpoints`
+- run tests with category: `pytest -m category_name`

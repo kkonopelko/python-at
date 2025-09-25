@@ -1,7 +1,9 @@
 import random
+import pytest
 from api.error_messages import *
 from api.clients.store_client import *
 
+@pytest.mark.category_name("API")
 class TestStoreEndpoints:
 
     # POST /store/order
@@ -30,8 +32,6 @@ class TestStoreEndpoints:
         assert actual_order_data["petId"] == test_order_data["petId"], "Order petId is not correct"
         assert actual_order_data["quantity"] == test_order_data["quantity"], "Order quantity is not correct"
 
-
-     # POST /st0re/order
     
     # POST /store/order
     def test_add_order_should_return_200_and_complete_false_order_status_if_no_data_was_passed(self):       

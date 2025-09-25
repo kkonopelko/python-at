@@ -3,6 +3,13 @@ from api.error_messages import *
 from api.clients.pet_client import *
 from api.models.pet_status import * 
 
+@pytest.fixture(scope="class", autouse=True)
+def setup_teardown_for_this_class():
+    print("Setup")
+    yield
+    print("Teardown: clean up data")
+
+@pytest.mark.category_name("API")
 class TestPetEndpoints:
 
     # GET /pet/findByStatus?status={value}
