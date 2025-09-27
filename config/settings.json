@@ -1,0 +1,22 @@
+{
+    "database": {
+        "connection_string": "postgresql://localhost:5432/testdb_dev"
+    },
+    "api": {
+        "base_url": "https://petstore.swagger.io/v2",
+        "timeout": 10,
+        "retry_attempts": 3
+    },
+    "web": {
+        "base_url": "http://localhost:8000"
+    },
+    "driver_settings": {
+        "browser": "chrome",
+        "run_mode": "headless"
+    },
+    "logging": {
+        "level": "INFO",
+        "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        "file_path": "logs/test_automation.log"
+    }
+}
