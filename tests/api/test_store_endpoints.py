@@ -1,12 +1,13 @@
 import random
 import pytest
-from api.error_messages import *
 from api.clients.store_client import *
+from api.error_messages import *
 
 @pytest.mark.api
 @pytest.mark.regression
 class TestStoreEndpoints:
 
+    store_client = StoreClient()
     # POST /store/order
     def test_add_order_should_return_200_and_placed_order_data(self):       
         
@@ -21,7 +22,7 @@ class TestStoreEndpoints:
         }
 
         # act
-        response = add_store_order(test_order_data)
+        response = self.store_client.add_store_order(test_order_data)
 
         #assert
         assert response.status_code == 200        
@@ -41,7 +42,7 @@ class TestStoreEndpoints:
         empty_order_data = {}
 
         # act
-        response = add_store_order(empty_order_data)
+        response = self.store_client.add_store_order(empty_order_data)
 
         #assert
         assert response.status_code == 200
@@ -53,7 +54,7 @@ class TestStoreEndpoints:
     def test_get_store_order_by_id_should_return_200(self):       
         
         existing_order_id = random.randint(1, 10)
-        response = get_store_order_by_id(existing_order_id)
+        response = self.store_client.get_store_order_by_id(existing_order_id)
 
         assert response.status_code == 200        
         assert response.headers["Content-Type"] == "application/json"
@@ -67,7 +68,7 @@ class TestStoreEndpoints:
         
         not_existing_order_id = 1500
 
-        response = get_store_order_by_id(not_existing_order_id)
+        response = self.store_client.get_store_order_by_id(not_existing_order_id)
 
         assert response.status_code == 404
         response_data = response.json()
@@ -85,12 +86,12 @@ class TestStoreEndpoints:
             "status": "placed",
             "complete": "true"
         }
-         
-        add_order_response = add_store_order(test_order_data)
+
+        add_order_response = self.store_client.add_store_order(test_order_data)
         assert add_order_response.status_code == 200
 
         # act
-        response = delete_store_order_by_id(test_order_data["id"])
+        response = self.store_client.delete_store_order_by_id(test_order_data["id"])
 
         # assert
         assert response.status_code == 200        
@@ -100,7 +101,7 @@ class TestStoreEndpoints:
         assert response_order_data["message"] == str(test_order_data["id"]), "Deleted order id is not correct"
 
         # check if order was deleted (can be checkd via DB)
-        get_order_response = get_store_order_by_id(test_order_data["id"])
+        get_order_response = self.store_client.get_store_order_by_id(test_order_data["id"])
         assert get_order_response.status_code == 404
 
     # DELETE /store/order/{id}
@@ -110,7 +111,7 @@ class TestStoreEndpoints:
         not_exist_order_id = 2000
 
         # act
-        response = delete_store_order_by_id(not_exist_order_id)
+        response = self.store_client.delete_store_order_by_id(not_exist_order_id)
 
         # assert
         assert response.status_code == 404

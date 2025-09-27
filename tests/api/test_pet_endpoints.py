@@ -1,23 +1,25 @@
 import pytest
 from api.error_messages import *
 from api.clients.pet_client import *
-from api.models.pet_status import * 
+from api.models.pet_status import *
 
 @pytest.fixture(scope="class", autouse=True)
 def setup_teardown_for_this_class():
-    print("Setup")
+    print("Setup data for TestPetEndpoints fixture")
     yield
-    print("Teardown: clean up data")
+    print("Teardown: clean up data for TestPetEndpoints fixture")
 
 @pytest.mark.api
 @pytest.mark.regression
 class TestPetEndpoints:
 
+    pet_client = PetClient()
+
     # GET /pet/findByStatus?status={value}
     @pytest.mark.parametrize("status", [PetStatus.available, PetStatus.pending, PetStatus.sold])
     def test_get_pets_by_status_should_return_200_and_dataList_when_searchinBy_valid_status(self, status):       
-        
-        response = get_pets_by_status(status.name)
+
+        response = self.pet_client.get_pets_by_status(status.name)
 
         assert response.status_code == 200        
         assert response.headers["Content-Type"] == "application/json"
@@ -37,7 +39,7 @@ class TestPetEndpoints:
     # GET /pet/findByStatus?status={value}
     def test_get_pets_by_status_should_return_200_and_noData_when_searchingBy_invalid_status(self):       
         
-        response = get_pets_by_status("invaliStatus")
+        response = self.pet_client.get_pets_by_status("invalidStatus")
 
         assert response.status_code == 200        
         assert response.headers["Content-Type"] == "application/json"
@@ -50,7 +52,7 @@ class TestPetEndpoints:
     def test_get_pet_by_id_should_return_200(self):       
         
         existing_pet_id = 2
-        response = get_pet_by_id(existing_pet_id)
+        response = self.pet_client.get_pet_by_id(existing_pet_id)
 
         assert response.status_code == 200        
         assert response.headers["Content-Type"] == "application/json"
@@ -67,7 +69,7 @@ class TestPetEndpoints:
         non_existing_pet_id = 0
 
         # Act
-        response = get_pet_by_id(non_existing_pet_id)
+        response = self.pet_client.get_pet_by_id(non_existing_pet_id)
 
         # Assert
         assert response.status_code == 404     

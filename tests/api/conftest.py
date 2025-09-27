@@ -1,6 +1,6 @@
 # this file is ussually used for pytest fixtures
-# all code here will be accessible from all test files in this folder
-# define here fixtures with scope for: common login for all tests before and after run, data setup and clean up etc.
+# all code here will be accessible for tests in this root directory.
+# use conftest.py for fixtures shared across multiple test files: global data seeding and clean up etc.
 
 import pytest
 
