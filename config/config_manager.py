@@ -64,9 +64,14 @@ class ConfigManager:
         return self.get_config_value('database.connection_string')
 
     @property
-    def api_base_url(self) -> str:
-        """Get API base URL for current environment."""
-        return self.get_config_value('api.base_url')
+    def store_api_base_url(self) -> str:
+        """Get API base URL for store service."""
+        return self.get_config_value('api.store_base_url')
+    
+    @property
+    def user_api_base_url(self) -> str:
+        """Get API base URL for user service."""
+        return self.get_config_value('api.user_base_url')
     
     @property
     def api_timeout(self) -> int:
