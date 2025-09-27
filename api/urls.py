@@ -1,5 +1,7 @@
+from config.config_manager import config
+
 #region: Pet store Api URL's
-PETSTORE_BASE_URL = "https://petstore.swagger.io/v2"
+PETSTORE_BASE_URL = config.api_base_url
 
 PET_URL = f"{PETSTORE_BASE_URL}/pet"
 GET_PETS_BY_STATUS_URL = lambda status: f"{PET_URL}/findByStatus?status={status}"
