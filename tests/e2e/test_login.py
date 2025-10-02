@@ -1,6 +1,6 @@
 from pages.login_page import LoginPage
 
-def test_valid_login(browser_context):
+def test_valid_login(page):
 
     # arrange
     user_credentials = {
@@ -8,7 +8,6 @@ def test_valid_login(browser_context):
         "password": "secret_sauce"
     }
 
-    page = browser_context.new_page()
     login_page = LoginPage(page)
 
     # Navigate to login page
