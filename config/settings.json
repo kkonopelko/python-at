@@ -9,11 +9,11 @@
         "retry_attempts": 3
     },
     "web": {
-        "base_url": "http://localhost:8000"
+        "base_url": "https://www.saucedemo.com/"
     },
     "driver_settings": {
-        "browser": "chrome",
-        "run_mode": "headless"
+        "browser": "chromium",
+        "headless": "false"
     },
     "logging": {
         "level": "INFO",

@@ -89,14 +89,14 @@ class ConfigManager:
         return self.get_config_value('web.base_url')
     
     @property
-    def driver_settings_browser(self) -> str:
-        """Get web browser setting."""
+    def browser_type(self) -> str:
+        """Get browser type setting."""
         return self.get_config_value('driver_settings.browser')
     
     @property
-    def driver_settings_run_mode(self) -> str:
+    def headless_mode(self) -> bool:
         """Get headless browser setting."""
-        return self.get_config_value('driver_settings.run_mode')
+        return self.get_config_value('driver_settings.headless')
     
     def get_all_config(self) -> Dict[str, Any]:
         """Get entire configuration."""
