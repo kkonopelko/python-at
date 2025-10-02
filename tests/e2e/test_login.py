@@ -1,4 +1,4 @@
-from page_objects.login_page import LoginPage
+from pages.login_page import LoginPage
 
 def test_valid_login(browser_context):
 
