@@ -18,7 +18,8 @@ class TestLogin:
 
         assert inventory_page.get_title() == INVENTORY_PAGE_TITLE_TEXT
         expect(inventory_page.page).to_have_url(re.compile(r".*inventory\.html$"))  # PLAYWRIGHT ASSERTIONS (Recommended) - Auto-waiting and more reliable
-        expect(inventory_page.get_cart_button_locator()).to_be_visible()
+        expect(inventory_page.header.get_cart_button_locator()).to_be_visible()
+        expect(inventory_page.header.get_menu_button_locator()).to_be_visible()
 
     def test_login_error_for_required_fields(self, page):        
         login_page = LoginPage(page)
