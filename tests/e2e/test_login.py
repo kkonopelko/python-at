@@ -33,12 +33,10 @@ class TestLogin:
         login_page.click_login_btn()
 
         expect(login_page.get_error_message_locator()).to_have_text(PASSWORD_ERROR_MESSAGE)
-    
-    incorrect_username = UserCredentials(username="incorrect_username", password=standard_user.password)
-    incorrect_password = UserCredentials(username=standard_user.username, password="incorrect_password")
 
     @pytest.mark.parametrize("credentials", 
-                             [incorrect_username, incorrect_password],
+                             [UserCredentials(username="incorrect_username", password=standard_user.password), 
+                              UserCredentials(username=standard_user.username, password="incorrect_password")],
                              ids=["incorrect_username", "incorrect_password"])
     def test_login_error_for_incorrect_user_credentials(self, page, credentials):
         login_page = LoginPage(page)
