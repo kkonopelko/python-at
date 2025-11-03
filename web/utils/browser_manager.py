@@ -18,7 +18,7 @@ def get_browser_type(playwright: Playwright) -> BrowserType:
 def get_launch_options():
         launch_options = {
             "headless": config.headless_mode,
-            "args": ["--start-maximized"] # for non-headless mode, doesn't work
+            "args": ["--start-maximized", "--window-size=1800,720"] # for non-headless mode, doesn't work
         }
         return launch_options
 
