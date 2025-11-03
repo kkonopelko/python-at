@@ -1,0 +1,6 @@
+INVENTORY_PAGE_TITLE_TEXT = "Products"
+
+USERNAME_ERROR_MESSAGE = "Epic sadface: Username is required"
+PASSWORD_ERROR_MESSAGE = "Epic sadface: Password is required"
+USERNAME_AND_PASSWORD_DONOT_MATCH_ERROR_MESSAGE = "Epic sadface: Username and password do not match any user in this service"
+USER_LOCKED_OUT_ERROR_MESSAGE = "Epic sadface: Sorry, this user has been locked out."
