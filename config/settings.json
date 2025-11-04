@@ -13,7 +13,7 @@
     },
     "driver_settings": {
         "browser": "chromium",
-        "headless": false
+        "headless": true
     },
     "logging": {
         "level": "INFO",
