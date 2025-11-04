@@ -62,7 +62,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install pytest-xdist pytest-html
+          pip install pytest pytest-xdist pytest-html
 
       - name: Install Playwright browsers
         run: |
