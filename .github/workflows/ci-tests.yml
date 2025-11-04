@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  api-tests:
+  run-api-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -18,7 +18,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.13.x' # pick the version your project needs
+          python-version: '3.13.x'
 
       - name: Install dependencies
         run: |
@@ -36,19 +36,20 @@ jobs:
         run: |
           mkdir -p test-reports
           echo "Running API tests..."
-          pytest tests/api/ -v --maxfail=5 \
+          # Using -n auto to run tests in parallel across available CPU cores
+          pytest tests/api/ -v --maxfail=5 -n auto \
             --junitxml=test-reports/api-junit.xml \
             --html=test-reports/api-report.html --self-contained-html \
             -m "api"
 
-      - name: Upload API test reports
+      - name: Upload API test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: api-test-results
           path: test-reports/
 
-  ui-tests:
+  run-ui-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -64,7 +65,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest pytest-html
+          pip install pytest pytest-xdist pytest-html
 
       - name: Install Playwright browsers
         run: |
@@ -96,7 +97,7 @@ jobs:
           
           playwright --version
           
-          pytest tests/e2e/ -v --maxfail=5 \
+          pytest tests/e2e/ -v --maxfail=5 -n auto \
             --junitxml=test-reports/e2e-junit.xml \
             --html=test-reports/e2e-report.html --self-contained-html \
             -m "e2e" \
@@ -104,7 +105,7 @@ jobs:
             -s \
             --capture=no
 
-      - name: Upload UI test reports
+      - name: Upload UI test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
