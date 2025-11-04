@@ -22,10 +22,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install -r requirements.txt
-          # test helpers: pytest, parallelism, html report
-          pip install pytest pytest-xdist pytest-html
+          # test helpers: parallelism, html report
+          pip install pytest-xdist pytest-html
 
       - name: Debug API test discovery
         run: |
@@ -38,7 +37,6 @@ jobs:
           echo "Running API tests..."
           # Using -n auto to run tests in parallel across available CPU cores
           pytest tests/api/ -v --maxfail=5 -n auto \
-            --junitxml=test-reports/api-junit.xml \
             --html=test-reports/api-report.html --self-contained-html \
             -m "api"
 
@@ -63,13 +61,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest pytest-xdist pytest-html
+          pip install pytest-xdist pytest-html
 
       - name: Install Playwright browsers
         run: |
-          pip install playwright --upgrade
           playwright install --with-deps chromium
           
       - name: Setup virtual display for UI tests
@@ -97,8 +93,7 @@ jobs:
           
           playwright --version
           
-          pytest tests/e2e/ -v --maxfail=5 -n auto \
-            --junitxml=test-reports/e2e-junit.xml \
+          pytest tests/e2e/ -v --maxfail=5 -n auto \            
             --html=test-reports/e2e-report.html --self-contained-html \
             -m "e2e" \
             --tb=short \
