@@ -46,6 +46,7 @@ jobs:
         with:
           name: api-test-results
           path: test-reports/
+          retention-days: 1
 
   run-ui-tests:
     runs-on: ubuntu-latest
@@ -61,6 +62,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest pytest-xdist pytest-html
 
@@ -94,7 +96,8 @@ jobs:
           
           playwright --version
           
-          pytest tests/e2e/ -v -n auto \            
+          pytest tests/e2e/ -v --maxfail=5 -n auto \
+            --junitxml=test-reports/e2e-junit.xml \            
             --html=test-reports/e2e-report.html --self-contained-html \
             -m "e2e" \
             --tb=short \
@@ -107,3 +110,4 @@ jobs:
         with:
           name: ui-test-results
           path: test-reports/
+          retention-days: 1
