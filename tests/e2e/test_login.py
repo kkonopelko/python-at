@@ -4,7 +4,9 @@ import pytest
 from pages.login_page import LoginPage
 from playwright.sync_api import expect
 from tests_common.test_data.user_data import *
-from tests_common.test_data.ui_text_view_data import *
+from tests_common.constants.ui_text_view_data import *
+from tests_common.models.enums.relative_uri import RelativeUri
+from utils.navigation import Navigation
 
 @pytest.mark.e2e
 @pytest.mark.smoke
@@ -56,3 +58,15 @@ class TestLogin:
         login_page.click_login_btn()
 
         expect(login_page.get_error_message_locator()).to_have_text(USER_LOCKED_OUT_ERROR_MESSAGE)
+
+    @pytest.mark.parametrize("relative_uri", 
+                             [RelativeUri.inventory_page, RelativeUri.product_detail_page, RelativeUri.cart_page, RelativeUri.checkout_step_one_page, 
+                              RelativeUri.checkout_step_two_page, RelativeUri.checkout_complete_page],
+                             ids=[uri.value for uri in [RelativeUri.inventory_page, RelativeUri.product_detail_page, RelativeUri.cart_page, 
+                                  RelativeUri.checkout_step_one_page, RelativeUri.checkout_step_two_page, RelativeUri.checkout_complete_page]])
+    def test_login_error_unauthorized_user(self, page, relative_uri):
+        login_page = LoginPage(page)
+        navigation = Navigation(page)
+
+        navigation.goto(relative_uri.value)
+        expect(login_page.get_error_message_locator()).to_have_text(USER_NOT_LOGGED_IN_ERROR_MESSAGE(relative_uri.value))
