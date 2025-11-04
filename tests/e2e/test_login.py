@@ -1,12 +1,12 @@
-import re
 import pytest
 
 from pages.login_page import LoginPage
 from playwright.sync_api import expect
-from tests_common.test_data.user_data import *
+from tests_common.test_data.users_data_provider import *
 from tests_common.constants.ui_text_view_data import *
 from tests_common.models.enums.relative_uri import RelativeUri
 from utils.navigation import Navigation
+from tests.e2e.helpers.url_assertions import UrlAssertions
 
 @pytest.mark.e2e
 @pytest.mark.smoke
@@ -19,7 +19,7 @@ class TestLogin:
         inventory_page = login_page.login(standard_user.username, standard_user.password)
 
         assert inventory_page.get_title() == INVENTORY_PAGE_TITLE_TEXT
-        expect(inventory_page.page).to_have_url(re.compile(r".*inventory\.html$"))  # PLAYWRIGHT ASSERTIONS (Recommended) - Auto-waiting and more reliable
+        UrlAssertions.expect_url_contains(inventory_page.page, RelativeUri.inventory_page.value) 
         expect(inventory_page.header.get_cart_button_locator()).to_be_visible()
         expect(inventory_page.header.get_menu_button_locator()).to_be_visible()
 

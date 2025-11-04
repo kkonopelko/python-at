@@ -1,7 +1,7 @@
 # Introduction
 Test Automation project with simple API/E2E tests using Python and Playwright.
  - [Pet store open API](https://petstore.swagger.io/) is used for API testing.
- - [Web site](https://petstore.swagger.io/) is used for UI testing.
+ - [Sause Demo site](https://www.saucedemo.com/) is used for UI testing.
 
 Languages and Frameworks: 
  - Python 3.13.7 as the programming language.

@@ -1,5 +1,5 @@
 from pages.base_page import BasePage
-from pages.inventory_page import InventoryPage
+from pages.inventory.inventory_page import InventoryPage
 
 class LoginPage(BasePage):
 

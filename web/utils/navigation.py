@@ -12,29 +12,17 @@ class Navigation:
         self.page.reload()
         return self
     
-    def open_new_tab(self, url: str = None):
-        """Open a new tab and optionally navigate to a URL.
-        
-        Args:
-            url: Optional URL to navigate to in the new tab
-            
-        Returns:
-            The new page object for the opened tab
-        """
-        # Get the browser context from the current page
+    def open_new_tab(self, relative_uri: str = None):
+        """Open a new tab and optionally navigate to a URL."""
         context = self.page.context
-        
-        # Create new page (tab)
         new_page = context.new_page()
-        
-        # Navigate to URL if provided
-        if url:
-            if url.startswith('http'):
-                new_page.goto(url)
+
+        if relative_uri:
+            if relative_uri.startswith('http'):
+                new_page.goto(relative_uri)
             else:
-                # Treat as relative URL
-                new_page.goto(f"{self.base_url}/{url}")
-        
+                new_page.goto(f"{self.base_url}/{relative_uri}")
+
         return new_page
     
     def switch_to_tab(self, tab_index: int):
