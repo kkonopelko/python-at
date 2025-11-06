@@ -11,6 +11,10 @@ jobs:
   run-api-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
+    env:
+      API_TESTS_PATH: tests/api/
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -29,14 +33,14 @@ jobs:
       - name: Debug API test discovery
         run: |
           echo "Discovering API tests..."
-          pytest tests/api/ --collect-only -q || echo "No API tests found"
+          pytest ${{ env.API_TESTS_PATH }} --collect-only -q || echo "No API tests found"
 
       - name: Run API tests
         run: |
           mkdir -p test-reports
           echo "Running API tests..."
           # Using -n auto to run tests in parallel across available CPU cores
-           pytest tests/api/ -v -n auto \
+           pytest ${{ env.API_TESTS_PATH }} -v -n auto \
             --junitxml=test-reports/api-junit.xml \
             --html=test-reports/api-report.html --self-contained-html \
             -m "api"
@@ -52,6 +56,11 @@ jobs:
   run-ui-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
+    env:
+      E2E_TESTS_PATH: tests/e2e/
+      PlaywrightBrowserName: chromium
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -69,7 +78,7 @@ jobs:
       - name: Install Playwright browsers
         run: |
           pip install playwright --upgrade
-          playwright install --with-deps chromium
+          playwright install --with-deps ${{ env.PlaywrightBrowserName }}
           
       - name: Setup virtual display for UI tests
         run: |
@@ -81,7 +90,7 @@ jobs:
       - name: Debug UI test discovery
         run: |
           echo "Discovering E2E tests..."
-          pytest tests/e2e/ --collect-only -q || echo "No E2E tests found"
+          pytest ${{ env.E2E_TESTS_PATH }} --collect-only -q || echo "No E2E tests found"
 
       - name: Run UI tests (E2E)
         env:
@@ -96,7 +105,7 @@ jobs:
           
           playwright --version
           
-          pytest tests/e2e/ -v -n auto \
+          pytest ${{ env.E2E_TESTS_PATH }} -v -n auto \
             --junitxml=test-reports/e2e-junit.xml \
             --html=test-reports/e2e-report.html --self-contained-html \
             -m "e2e" \
