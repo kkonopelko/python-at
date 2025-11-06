@@ -23,8 +23,8 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          # test helpers: pytest, parallelism, html report
-          pip install pytest pytest-xdist pytest-html
+          # test helpers: parallelism, html report
+          pip install pytest-xdist pytest-html
 
       - name: Debug API test discovery
         run: |
@@ -64,7 +64,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install pytest pytest-xdist pytest-html
+          pip install pytest-xdist pytest-html
 
       - name: Install Playwright browsers
         run: |
