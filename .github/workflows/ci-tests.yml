@@ -36,7 +36,7 @@ jobs:
           mkdir -p test-reports
           echo "Running API tests..."
           # Using -n auto to run tests in parallel across available CPU cores
-           pytest tests/api/ -v --maxfail=5 -n auto \
+           pytest tests/api/ -v -n auto \
             --junitxml=test-reports/api-junit.xml \
             --html=test-reports/api-report.html --self-contained-html \
             -m "api"
@@ -96,7 +96,7 @@ jobs:
           
           playwright --version
           
-          pytest tests/e2e/ -v --maxfail=5 -n auto \
+          pytest tests/e2e/ -v -n auto \
             --junitxml=test-reports/e2e-junit.xml \
             --html=test-reports/e2e-report.html --self-contained-html \
             -m "e2e" \
