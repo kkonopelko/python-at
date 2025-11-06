@@ -3,14 +3,12 @@ from pages.cart.cart_item_block import CartItemBlock
 from web.models.cart_product_ui_data import CartProductUiData
 
 class CartPage(BasePage):
-
     #region Locators
     CART_ITEM = ".cart_item"
     #endregion
 
-
     def get_products_data(self) -> list[CartProductUiData]:
-        cart_items = self.get_cart_items()
+        cart_items = self.__get_cart_items()
         products_data = []
         
         for cart_item in cart_items:
@@ -19,6 +17,6 @@ class CartPage(BasePage):
         
         return products_data
 
-    def get_cart_items(self) -> list[CartItemBlock]:
+    def __get_cart_items(self) -> list[CartItemBlock]:
         cart_item_locators = self.page.locator(self.CART_ITEM).all()
         return [CartItemBlock(locator) for locator in cart_item_locators]

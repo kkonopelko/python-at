@@ -13,7 +13,8 @@
     },
     "driver_settings": {
         "browser": "chromium",
-        "headless": true
+        "headless": true,
+        "slow_mo": 0
     },
     "logging": {
         "level": "INFO",

@@ -33,6 +33,7 @@ For local debugging - update `settings.json` file in the directory (e.g. `config
 ```json
 "driver_settings": {
         "browser": "chromium",
-        "headless": false
+        "headless": false,
+        "slow_mo": 500
     }
 ```
