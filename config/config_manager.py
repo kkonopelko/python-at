@@ -98,6 +98,11 @@ class ConfigManager:
         """Get headless browser setting."""
         return self.get_config_value('driver_settings.headless')
     
+    @property
+    def slow_motion(self) -> int:
+        """Get slow motion setting."""
+        return self.get_config_value('driver_settings.slow_mo')
+    
     def get_all_config(self) -> Dict[str, Any]:
         """Get entire configuration."""
         return self._config_data

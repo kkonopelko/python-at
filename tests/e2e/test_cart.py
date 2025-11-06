@@ -1,8 +1,8 @@
 import pytest
 import random
 
-from pages.login_page import LoginPage
 from playwright.sync_api import expect
+from pages.login_page import LoginPage
 from tests_common.models.enums.relative_uri import RelativeUri
 from tests_common.test_data.products_data_provider import *
 from tests_common.test_data.users_data_provider import *

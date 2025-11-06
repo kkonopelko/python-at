@@ -19,9 +19,9 @@ class InventoryPage(BasePage):
         return self.page.inner_text(self.TITLE_TEXT)
 
     def add_product_to_cart(self, product_title: str):
-        self.find_product_with_title(product_title).click_add_to_cart_btn()
+        self.__find_product_with_title(product_title).click_add_to_cart_btn()
         return self
 
-    def find_product_with_title(self, title: str):
+    def __find_product_with_title(self, title: str):
         product_locator = self.page.locator(self.PRODUCTS, has_text=f"{title}")
         return ProductDataBlock(product_locator)

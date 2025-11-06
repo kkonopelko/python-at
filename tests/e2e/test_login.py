@@ -1,13 +1,12 @@
 import pytest
 
-from pages.login_page import LoginPage
 from playwright.sync_api import expect
+from pages.login_page import LoginPage
+from utils.navigation import Navigation
 from tests_common.test_data.users_data_provider import *
 from tests_common.constants.ui_text_view_data import *
 from tests_common.models.enums.relative_uri import RelativeUri
-from utils.navigation import Navigation
 from tests.e2e.helpers.url_assertions import UrlAssertions
-
 @pytest.mark.e2e
 @pytest.mark.smoke
 class TestLogin:

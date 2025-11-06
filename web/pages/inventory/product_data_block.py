@@ -3,18 +3,18 @@ class ProductDataBlock:
         self.parent_locator = parent_locator
     
     #region Locators
-    TITLE = (".inventory_item_name")
-    DESCRIPTION = (".inventory_item_desc")
-    PRICE = (".inventory_item_price")
+    TITLE_TEXT_VALUE = (".inventory_item_name")
+    DESCRIPTION_TEXT_VALUE = (".inventory_item_desc")
+    PRICE_VALUE = (".inventory_item_price")
     IMAGE = ("img.inventory_item_img")
-    ADD_TO_CART = ("button[id^=add-to-cart]")
-    REMOVE_FROM_CART = ("button[id^=remove]")
+    ADD_TO_CART_BUTTON = ("button[id^=add-to-cart]")
+    REMOVE_FROM_CART_BUTTON = ("button[id^=remove]")
     #endregion
 
     def click_add_to_cart_btn(self):
-        self.parent_locator.locator(self.ADD_TO_CART).click()
+        self.parent_locator.locator(self.ADD_TO_CART_BUTTON).click()
         return self
     
     def click_remove_from_cart_btn(self):
-        self.parent_locator.locator(self.REMOVE_FROM_CART).click()
+        self.parent_locator.locator(self.REMOVE_FROM_CART_BUTTON).click()
         return self
