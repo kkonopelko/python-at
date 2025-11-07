@@ -14,8 +14,8 @@ class CartItemBlock:
 
     def get_product_data(self) -> CartProductUiData:
         return CartProductUiData(
-            title=self.parent_locator.locator(self.TITLE_TEXT_VALUE).inner_text(),
-            quantity=self.parent_locator.locator(self.QUANTITY).inner_text(),
-            description=self.parent_locator.locator(self.DESCRIPTION_TEXT_VALUE).inner_text(),
-            price=self.parent_locator.locator(self.PRICE_VALUE).inner_text()
+            title=self.parent_locator.locator(self.TITLE_TEXT_VALUE).inner_text().strip(),
+            quantity=self.parent_locator.locator(self.QUANTITY).inner_text().strip(),
+            description=self.parent_locator.locator(self.DESCRIPTION_TEXT_VALUE).inner_text().strip(),
+            price=self.parent_locator.locator(self.PRICE_VALUE).inner_text().strip()
         )
