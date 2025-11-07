@@ -103,6 +103,11 @@ class ConfigManager:
         """Get slow motion setting."""
         return self.get_config_value('driver_settings.slow_mo')
     
+    @property
+    def trace_directory(self) -> str:
+        """Get trace directory setting."""
+        return self.get_config_value('driver_settings.trace_report_directory')
+    
     def get_all_config(self) -> Dict[str, Any]:
         """Get entire configuration."""
         return self._config_data
