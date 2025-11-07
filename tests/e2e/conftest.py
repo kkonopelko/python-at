@@ -33,3 +33,5 @@ def save_trace_record(context, request, test_name: str):
         context.tracing.stop(path=trace_path)
     else:
         context.tracing.stop()
+
+# for failed tests playwright can generate: trace, screenshots/videos (in context options) for later investigation 

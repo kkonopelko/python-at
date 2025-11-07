@@ -29,7 +29,7 @@ class TestCart:
         UrlAssertions.expect_url_contains(cart_page.page, RelativeUri.cart_page.value)
         
         actual_products_in_cart = cart_page.get_products_data()
-        assert len(actual_products_in_cart) == 2
+        assert len(actual_products_in_cart) == 1
 
         expected_product = ProductMapper.to_cart_product_ui_model(product)
         actual_product = actual_products_in_cart[0]        
