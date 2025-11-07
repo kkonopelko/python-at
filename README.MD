@@ -37,3 +37,8 @@ For local debugging - update `driver_settings` section in `config/settings.json`
         "slow_mo": 500
     }
 ```
+
+## Tests output
+
+1. Test result report generates and published on CI by using pytest-html lib (HTML report/JUnit XML)
+2. Playwright debug artifacts for failed tests (traces, screenshots, videos)

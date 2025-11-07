@@ -15,7 +15,7 @@
         "browser": "chromium",
         "headless": true,
         "slow_mo": 0,
-        "trace_report_directory": "test-results"
+        "debug_artefacts_directory": "test-results"
     },
     "logging": {
         "level": "INFO",

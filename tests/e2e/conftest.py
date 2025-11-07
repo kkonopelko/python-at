@@ -21,17 +21,21 @@ def page(browser, request):
     page = context.new_page()
     yield page
 
-    save_trace_record(context, request, test_name)
+    capture_screenshot_on_failure(page, request, test_name)
+    save_trace_record_on_failure(context, request, test_name)
     context.close()
 
 def start_trace_record(context, test_name: str):
     context.tracing.start(title=test_name, screenshots=True, snapshots=True, sources=True)
 
-def save_trace_record(context, request, test_name: str):
+def save_trace_record_on_failure(context, request, test_name: str):
     if request.node.rep_call.failed:
-        trace_path = f"{config.trace_directory}/trace_{test_name}.zip"
+        trace_path = f"{config.debug_artefacts_directory}/failed_{test_name}/trace_{test_name}.zip"
         context.tracing.stop(path=trace_path)
     else:
         context.tracing.stop()
 
-# for failed tests playwright can generate: trace, screenshots/videos (in context options) for later investigation 
+def capture_screenshot_on_failure(page, request, test_name: str):
+    if request.node.rep_call.failed:
+        screenshot_path = f"{config.debug_artefacts_directory}/failed_{test_name}/screenshot_{test_name}.png"
+        page.screenshot(path=screenshot_path)

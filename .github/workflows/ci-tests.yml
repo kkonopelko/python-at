@@ -45,11 +45,11 @@ jobs:
             --html=test-reports/api-report.html --self-contained-html \
             -m "api"
 
-      - name: Upload API test results
+      - name: Upload API test results report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: api-test-results
+          name: api-test-results-report
           path: test-reports/
           retention-days: 1
 
@@ -113,19 +113,19 @@ jobs:
             -s \
             --capture=no
 
-      - name: Upload UI test results
+      - name: Upload UI test results report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ui-test-results
+          name: ui-test-results-report
           path: test-reports/
           retention-days: 1
 
-      - name: Upload Playwright traces
+      - name: Upload Playwright debug artifacts
         if: failure()  # only upload if tests failed
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-traces
-          path: test-results/**/*.zip
+          name: playwright-debug-artifacts
+          path: test-results/
           retention-days: 1
           if-no-files-found: ignore
