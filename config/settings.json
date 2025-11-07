@@ -14,7 +14,8 @@
     "driver_settings": {
         "browser": "chromium",
         "headless": true,
-        "slow_mo": 0
+        "slow_mo": 0,
+        "debug_artefacts_directory": "test-results"
     },
     "logging": {
         "level": "INFO",

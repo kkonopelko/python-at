@@ -134,3 +134,6 @@ dmypy.json
 .idea
 .vscode
 */idea
+
+# Playwright trace files
+test-results/*

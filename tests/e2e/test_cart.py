@@ -3,8 +3,6 @@ import random
 
 from playwright.sync_api import expect
 from tests.e2e.helpers.shared_steps import login
-from pages.cart.cart_page import CartPage
-from utils.navigation import Navigation
 from tests.e2e.mappers.product_mapper import ProductMapper
 from tests_common.models.enums.relative_uri import RelativeUri
 from tests_common.test_data.products_data_provider import *
