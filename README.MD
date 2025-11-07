@@ -28,11 +28,10 @@ Run tests: `python -m pytest -v` or `pytest`
 
 ## Configuration
 
-For local debugging - update `driver_settings` section in `config/settings.json` file with the following content:
+For local debugging update `driver_settings` section in `config/settings.json` file with the following content:
 
 ```json
 "driver_settings": {
-        "browser": "chromium",
         "headless": false,
         "slow_mo": 500
     }

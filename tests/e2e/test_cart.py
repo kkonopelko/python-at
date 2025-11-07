@@ -29,7 +29,7 @@ class TestCart:
         UrlAssertions.expect_url_contains(cart_page.page, RelativeUri.cart_page.value)
         
         actual_products_in_cart = cart_page.get_products_data()
-        assert len(actual_products_in_cart) == 2
+        assert len(actual_products_in_cart) == 1
 
         expected_product = ProductMapper.to_cart_product_ui_model(product)
         actual_product = actual_products_in_cart[0]        
@@ -43,7 +43,7 @@ class TestCart:
         expect(inventory_page.header.get_cart_badge_locator()).to_have_text("1")
         
         inventory_page.add_product_to_cart(products[1].title) 
-        expect(inventory_page.header.get_cart_badge_locator()).to_have_text("1")
+        expect(inventory_page.header.get_cart_badge_locator()).to_have_text("2")
 
         inventory_page.add_product_to_cart(products[2].title) 
         expect(inventory_page.header.get_cart_badge_locator()).to_have_text("3")
