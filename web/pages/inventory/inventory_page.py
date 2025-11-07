@@ -23,6 +23,10 @@ class InventoryPage(BasePage):
         self.__find_product_with_title(product_title).click_add_to_cart_btn()
         return self
     
+    def remove_product_from_cart(self, product_title: str):
+        self.__find_product_with_title(product_title).click_remove_from_cart_btn()
+        return self
+    
     def click_on_product_title(self, title: str):
         self.__find_product_with_title(title).click_product_title()
         return ProductPage(self.page)

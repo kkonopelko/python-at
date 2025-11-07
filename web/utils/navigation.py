@@ -1,4 +1,11 @@
+from typing import TypeVar, Type
 from config.config_manager import config
+from pages.cart.cart_page import CartPage
+from pages.inventory.inventory_page import InventoryPage
+from tests_common.models.enums.relative_uri import RelativeUri
+
+# Generic type for page objects
+T = TypeVar('T')
 
 class Navigation:
     def __init__(self, page):
@@ -7,6 +14,33 @@ class Navigation:
 
     def goto(self, relative_url: str):
         self.page.goto(f"{self.base_url}/{relative_url}")
+       
+    def navigate_to(self, page_class: Type[T], relative_url: str = "") -> T:
+        """
+        Navigate to a specific page and return an instance of that page.
+        
+        Args:
+            page_class: The page class to instantiate (e.g., CartPage, InventoryPage)
+            relative_url: Optional relative URL. If not provided, uses page-specific defaults
+            
+        Returns:
+            Instance of the specified page class
+            
+        Usage:
+            cart_page = navigation.navigate_to(CartPage)
+            inventory_page = navigation.navigate_to(InventoryPage, "inventory.html")
+        """
+        # Use default URLs if not provided
+        if not relative_url:
+            if page_class == CartPage:
+                relative_url = RelativeUri.cart_page.value
+            elif page_class == InventoryPage:
+                relative_url = RelativeUri.inventory_page.value
+        
+        full_url = f"{self.base_url}/{relative_url}" if relative_url else self.base_url
+        self.page.goto(full_url)
+        
+        return page_class(self.page)
     
     def refresh_page(self):
         self.page.reload()

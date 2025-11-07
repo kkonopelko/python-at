@@ -3,6 +3,8 @@ import random
 
 from playwright.sync_api import expect
 from tests.e2e.helpers.shared_steps import login
+from pages.cart.cart_page import CartPage
+from utils.navigation import Navigation
 from tests.e2e.mappers.product_mapper import ProductMapper
 from tests_common.models.enums.relative_uri import RelativeUri
 from tests_common.test_data.products_data_provider import *
@@ -102,3 +104,34 @@ class TestCart:
 
         expected_products = ProductMapper.to_cart_product_ui_list(products)    
         assert actual_products_in_cart == expected_products
+
+    def test_remove_from_cart_cart_page(self, page):
+        product = random.choice(all_products)        
+        inventory_page = login(page, standard_user)
+        
+        inventory_page.add_product_to_cart(product.title)
+
+        cart_page = inventory_page.header.open_cart()
+        cart_page.click_on_remove_btn(product.title)
+        expect(cart_page.get_cart_items_locator()).not_to_be_visible()
+
+    def test_remove_from_cart_inventory_page(self, page):
+        product = random.choice(all_products)        
+        inventory_page = login(page, standard_user)
+        
+        inventory_page.add_product_to_cart(product.title)
+        inventory_page.remove_product_from_cart(product.title)
+
+        cart_page = inventory_page.header.open_cart()
+        expect(cart_page.get_cart_items_locator()).not_to_be_visible()
+
+    def test_remove_from_cart_product_page(self, page):
+        product = random.choice(all_products)
+        inventory_page = login(page, standard_user)
+        
+        inventory_page.add_product_to_cart(product.title)
+        product_page = inventory_page.click_on_product_title(product.title)
+        product_page.click_remove_btn()
+        
+        cart_page = product_page.header.open_cart()
+        expect(cart_page.get_cart_items_locator()).not_to_be_visible()

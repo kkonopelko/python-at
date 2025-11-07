@@ -9,7 +9,7 @@ class CartItemBlock:
     QUANTITY = ".cart_quantity"
     DESCRIPTION_TEXT_VALUE = ".inventory_item_desc"
     PRICE_VALUE = ".inventory_item_price"
-    REMOVE_BUTTON = ".cart_button"
+    REMOVE_BUTTON = "button[id^=remove]"
     #endregion
 
     def get_product_data(self) -> CartProductUiData:
@@ -19,3 +19,7 @@ class CartItemBlock:
             description=self.parent_locator.locator(self.DESCRIPTION_TEXT_VALUE).inner_text().strip(),
             price=self.parent_locator.locator(self.PRICE_VALUE).inner_text().strip()
         )
+
+    def click_remove_from_cart_btn(self):
+        self.parent_locator.locator(self.REMOVE_BUTTON).click()
+        return self
