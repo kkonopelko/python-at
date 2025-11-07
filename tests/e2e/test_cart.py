@@ -56,3 +56,49 @@ class TestCart:
 
         expected_products = ProductMapper.to_cart_product_ui_list(products)     
         assert actual_products_in_cart == expected_products
+
+    def test_add_to_cart_single_item_from_product_page(self, page):
+        product = random.choice(all_products)        
+        inventory_page = login(page, standard_user)
+        
+        product_page = inventory_page.click_on_product_title(product.title)
+        product_page.click_add_to_cart_btn()
+
+        expect(product_page.header.get_cart_badge_locator()).to_have_text("1")
+        
+        cart_page = product_page.header.open_cart()
+        UrlAssertions.expect_url_contains(cart_page.page, RelativeUri.cart_page.value)
+        
+        actual_products_in_cart = cart_page.get_products_data()
+        assert len(actual_products_in_cart) == 1
+
+        expected_product = ProductMapper.to_cart_product_ui_model(product)
+        actual_product = actual_products_in_cart[0]        
+        assert actual_product == expected_product
+
+    def test_add_to_cart_multiple_items_from_product_page(self, page):
+        products = random.sample(all_products, 3)
+        inventory_page = login(page, standard_user)
+        
+        product_page = inventory_page.click_on_product_title(products[0].title)
+        product_page.click_add_to_cart_btn()
+        expect(product_page.header.get_cart_badge_locator()).to_have_text("1")
+        product_page.click_back_to_products_btn()
+
+        inventory_page.click_on_product_title(products[1].title)
+        product_page.click_add_to_cart_btn()
+        expect(product_page.header.get_cart_badge_locator()).to_have_text("2")
+        product_page.click_back_to_products_btn()
+
+        inventory_page.click_on_product_title(products[2].title)
+        product_page.click_add_to_cart_btn()
+        expect(product_page.header.get_cart_badge_locator()).to_have_text("3")
+
+        cart_page = product_page.header.open_cart()
+        UrlAssertions.expect_url_contains(cart_page.page, RelativeUri.cart_page.value)
+        
+        actual_products_in_cart = cart_page.get_products_data()
+        assert len(actual_products_in_cart) == 3
+
+        expected_products = ProductMapper.to_cart_product_ui_list(products)    
+        assert actual_products_in_cart == expected_products
