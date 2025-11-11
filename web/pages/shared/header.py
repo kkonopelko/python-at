@@ -1,6 +1,5 @@
 
 from pages.menu_sidebar import MenuSidebar
-# Remove CartPage import to avoid circular import
 
 class Header:    
     def __init__(self, page):

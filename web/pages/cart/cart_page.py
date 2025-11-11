@@ -1,5 +1,6 @@
 from pages.base_page import BasePage
 from pages.cart.cart_item_block import CartItemBlock
+from pages.checkout.checkout_information_page import CheckoutInformationPage
 from web.models.cart_product_ui_data import CartProductUiData
 
 class CartPage(BasePage):
@@ -25,7 +26,6 @@ class CartPage(BasePage):
         return self.cart_items_locator
     
     def click_checkout(self):
-        from pages.checkout.checkout_information_page import CheckoutInformationPage  # Lazy import to avoid circular dependency
         self.checkout_button_locator.click()
         return CheckoutInformationPage(self.page)
 
