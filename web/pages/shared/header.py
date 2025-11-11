@@ -5,26 +5,26 @@ from pages.cart.cart_page import CartPage
 class Header:    
     def __init__(self, page):
         self.page = page
-    
-    #region Locators
-    CART_BUTTON = "[data-test='shopping-cart-link']"
-    CART_BADGE = ".shopping_cart_badge"
-    MENU_BUTTON = "#react-burger-menu-btn"
-    #endregion
-    
-    def get_cart_button_locator(self):
-        return self.page.locator(self.CART_BUTTON)
-
-    def get_menu_button_locator(self):
-        return self.page.locator(self.MENU_BUTTON)
+        self.__init_locators__(page)  
     
     def click_menu_button(self):
-        self.page.click(self.MENU_BUTTON)
+        self.menu_btn_locator.click()
         return MenuSidebar(self.page)
     
     def open_cart(self):
-        self.page.click(self.CART_BUTTON)
+        self.cart_btn_locator.click()
         return CartPage(self.page)  
     
     def get_cart_badge_locator(self):
-        return self.page.locator(self.CART_BADGE)
+        return self.cart_badge_locator
+    
+    def get_cart_button_locator(self):
+        return self.cart_btn_locator
+
+    def get_menu_button_locator(self):
+        return self.menu_btn_locator
+    
+    def __init_locators__(self, page):
+        self.cart_btn_locator = page.locator("[data-test='shopping-cart-link']")
+        self.cart_badge_locator = page.locator(".shopping_cart_badge")
+        self.menu_btn_locator = page.locator("#react-burger-menu-btn")

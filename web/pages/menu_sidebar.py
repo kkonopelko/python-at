@@ -1,9 +1,12 @@
 from pages.base_page import BasePage
 
 class MenuSidebar(BasePage):
-    #region Locators
-    CLOSE_BUTTON = "#react-burger-cross-btn"
-    #endregion
+    def __init__(self, page):
+        super().__init__(page)
+        self.__init_locators__(page)
 
     def click_close_button(self):
-        return self.page.click(self.CLOSE_BUTTON)
+        return self.close_btn_locator.click()
+    
+    def __init_locators__(self, page):
+        self.close_btn_locator = page.locator("#react-burger-cross-btn")

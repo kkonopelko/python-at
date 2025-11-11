@@ -3,9 +3,9 @@ from pages.cart.cart_item_block import CartItemBlock
 from web.models.cart_product_ui_data import CartProductUiData
 
 class CartPage(BasePage):
-    #region Locators
-    CART_ITEM = ".cart_item"
-    #endregion
+    def __init__(self, page):
+        super().__init__(page)
+        self.__init_locators__(page)
 
     def get_products_data(self) -> list[CartProductUiData]:
         cart_items = self.__get_cart_items()
@@ -22,12 +22,16 @@ class CartPage(BasePage):
         return self
     
     def get_cart_items_locator(self):
-        return self.page.locator(self.CART_ITEM)
+        return self.cart_items_locator
 
     def __get_cart_items(self) -> list[CartItemBlock]:
-        cart_item_locators = self.page.locator(self.CART_ITEM).all()
+        cart_item_locators = self.cart_items_locator.all()
         return [CartItemBlock(locator) for locator in cart_item_locators]
     
     def __find_product_with_title(self, title: str):
-        product_locator = self.page.locator(self.CART_ITEM, has_text=f"{title}")
+        product_locator = self.cart_item_by_title_locator(title)
         return CartItemBlock(product_locator)
+    
+    def __init_locators__(self, page):
+        self.cart_items_locator = page.locator(".cart_item")
+        self.cart_item_by_title_locator = lambda title: page.locator(".cart_item", has_text=f"{title}")

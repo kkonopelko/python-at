@@ -40,4 +40,4 @@ For local debugging update `driver_settings` section in `config/settings.json` f
 ## Tests output
 
 1. Test result report generates and published on CI by using pytest-html lib (HTML report/JUnit XML)
-2. Playwright debug artifacts for failed tests (traces, screenshots, videos)
+2. Playwright debug artifacts (traces, screenshots) are generated and saved only for failed tests into `test-results` folder

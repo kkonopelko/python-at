@@ -5,19 +5,15 @@ from pages.shared.header import Header
 
 class InventoryPage(BasePage):
     def __init__(self, page):
-        super().__init__(page)  # Initialize the base class
+        super().__init__(page)
+        self.__init_locators__(page)
         self.header = Header(page)  # Inject Header component
-
-    #region Locators
-    TITLE_TEXT = "[data-test='title']"
-    PRODUCTS = ".inventory_item"
-    #endregion
 
     def get_url(self) -> str:
         return self.page.get_url()
     
     def get_title(self) -> str:
-        return self.page.inner_text(self.TITLE_TEXT)
+        return self.title_text_locator.inner_text()
 
     def add_product_to_cart(self, product_title: str):
         self.__find_product_with_title(product_title).click_add_to_cart_btn()
@@ -32,5 +28,8 @@ class InventoryPage(BasePage):
         return ProductPage(self.page)
 
     def __find_product_with_title(self, title: str):
-        product_locator = self.page.locator(self.PRODUCTS, has_text=f"{title}")
-        return ProductDataBlock(product_locator)
+        return ProductDataBlock(self.product_by_title_locator(title))
+    
+    def __init_locators__(self, page):
+        self.title_text_locator = page.locator("[data-test='title']")
+        self.product_by_title_locator = lambda title: page.locator(".inventory_item", has_text=f"{title}")
