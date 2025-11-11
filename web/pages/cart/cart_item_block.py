@@ -3,23 +3,23 @@ from web.models.cart_product_ui_data import CartProductUiData
 class CartItemBlock:
     def __init__(self, parent_locator):
         self.parent_locator = parent_locator
-
-    #region Locators (relative to the cart item)
-    TITLE_TEXT_VALUE = ".inventory_item_name"
-    QUANTITY = ".cart_quantity"
-    DESCRIPTION_TEXT_VALUE = ".inventory_item_desc"
-    PRICE_VALUE = ".inventory_item_price"
-    REMOVE_BUTTON = "button[id^=remove]"
-    #endregion
+        self.__init_locators__(parent_locator)
 
     def get_product_data(self) -> CartProductUiData:
         return CartProductUiData(
-            title=self.parent_locator.locator(self.TITLE_TEXT_VALUE).inner_text().strip(),
-            quantity=self.parent_locator.locator(self.QUANTITY).inner_text().strip(),
-            description=self.parent_locator.locator(self.DESCRIPTION_TEXT_VALUE).inner_text().strip(),
-            price=self.parent_locator.locator(self.PRICE_VALUE).inner_text().strip()
+            title=self.title_text_value_locator.inner_text().strip(),
+            quantity=self.quantity_locator.inner_text().strip(),
+            description=self.description_text_value_locator.inner_text().strip(),
+            price=self.price_value_locator.inner_text().strip()
         )
 
     def click_remove_from_cart_btn(self):
-        self.parent_locator.locator(self.REMOVE_BUTTON).click()
+        self.remove_button_locator.click()
         return self
+
+    def __init_locators__(self, parent_locator):  # relative to the cart item
+        self.title_text_value_locator = parent_locator.locator(".inventory_item_name")
+        self.quantity_locator = parent_locator.locator(".cart_quantity")
+        self.description_text_value_locator = parent_locator.locator(".inventory_item_desc")
+        self.price_value_locator = parent_locator.locator(".inventory_item_price")
+        self.remove_button_locator = parent_locator.locator("button[id^=remove]")
