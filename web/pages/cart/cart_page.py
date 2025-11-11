@@ -23,6 +23,11 @@ class CartPage(BasePage):
     
     def get_cart_items_locator(self):
         return self.cart_items_locator
+    
+    def click_checkout(self):
+        from pages.checkout.checkout_information_page import CheckoutInformationPage  # Lazy import to avoid circular dependency
+        self.checkout_button_locator.click()
+        return CheckoutInformationPage(self.page)
 
     def __get_cart_items(self) -> list[CartItemBlock]:
         cart_item_locators = self.cart_items_locator.all()
@@ -35,3 +40,4 @@ class CartPage(BasePage):
     def __init_locators__(self, page):
         self.cart_items_locator = page.locator(".cart_item")
         self.cart_item_by_title_locator = lambda title: page.locator(".cart_item", has_text=f"{title}")
+        self.checkout_button_locator = page.locator("#checkout")

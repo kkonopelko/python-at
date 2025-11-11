@@ -1,6 +1,6 @@
 
 from pages.menu_sidebar import MenuSidebar
-from pages.cart.cart_page import CartPage
+# Remove CartPage import to avoid circular import
 
 class Header:    
     def __init__(self, page):
@@ -12,6 +12,7 @@ class Header:
         return MenuSidebar(self.page)
     
     def open_cart(self):
+        from pages.cart.cart_page import CartPage  # Lazy import to avoid circular dependency
         self.cart_btn_locator.click()
         return CartPage(self.page)  
     
