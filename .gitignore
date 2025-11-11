@@ -135,5 +135,5 @@ dmypy.json
 .vscode
 */idea
 
-# Playwright trace files
+# Playwright debug artifacts files
 test-results/*
