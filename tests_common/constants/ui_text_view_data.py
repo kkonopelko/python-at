@@ -11,3 +11,10 @@ USER_NOT_LOGGED_IN_ERROR_MESSAGE = lambda relativeUri: f"Epic sadface: You can o
 # Checkout complete page
 CHECKOUT_COMPLETE_HEADER_TEXT = "Thank you for your order!"
 CHECKOUT_COMPLETE_TEXT = "Your order has been dispatched, and will arrive just as fast as the pony can get there!"
+
+# Checkout overview page
+PAYMENT_INFORMATION_TEXT = "SauceCard #31337"
+SHIPPING_INFORMATION_TEXT = "Free Pony Express Delivery!"
+ITEM_TOTAL_TEXT = lambda item_total: f"Item total: ${item_total:.2f}"
+TAX_TEXT = lambda tax: f"Tax: ${tax:.2f}"
+TOTAL = lambda item_total, tax: f"Total: ${item_total + tax:.2f}"
