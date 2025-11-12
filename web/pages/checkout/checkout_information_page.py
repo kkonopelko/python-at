@@ -30,9 +30,21 @@ class CheckoutInformationPage(BasePage):
     def click_continue_button(self):
         self.continue_button_locator.click()
         return CheckoutOverviewPage(self.page)
+    
+    def get_error_message_text_locator(self):
+        return self.error_message_locator
+    
+    def get_error_message_text(self) -> str:
+        return self.error_message_locator.inner_text().strip()
+    
+    def click_close_error_button(self):
+        self.error_btn_locator.click()
+        return self
 
     def __init_locators__(self, page):
         self.first_name_input_locator = page.locator("#first-name")
         self.last_name_input_locator = page.locator("#last-name")
         self.zip_code_input_locator = page.locator("#postal-code")
         self.continue_button_locator = page.locator("#continue")
+        self.error_message_locator = page.locator("[data-test='error']")
+        self.error_btn_locator = page.locator(".error-button")

@@ -74,7 +74,32 @@ class TestCheckout:
         checkout_complete_page.header.open_cart()
         expect(cart_page.get_cart_items_locator()).not_to_be_visible()
 
-    
+    def test_checkout_shipping_information_fields_are_required(self, page):
+        product = random.choice(all_products)
+        inventory_page = login(page, standard_user)
+
+        inventory_page.add_product_to_cart(product.title)
+        cart_page = inventory_page.header.open_cart()
+
+        checkout_information_page = cart_page.click_checkout()        
+        checkout_information_page.click_continue_button()
+        assert checkout_information_page.get_error_message_text() == FIRST_NAME_ERROR_MESSAGE
+
+        checkout_information_page.fill_first_name("TestFirstName")
+        checkout_information_page.click_continue_button()
+        assert checkout_information_page.get_error_message_text() == LAST_NAME_ERROR_MESSAGE
+
+        checkout_information_page.fill_last_name("TestLastName")
+        checkout_information_page.click_continue_button()
+        assert checkout_information_page.get_error_message_text() == POSTAL_CODE_ERROR_MESSAGE
+
+        checkout_information_page.click_close_error_button()
+        expect(checkout_information_page.get_error_message_text_locator()).not_to_be_visible()
+
+        checkout_information_page.fill_zip_code("12345")
+        checkout_overview_page = checkout_information_page.click_continue_button()
+        UrlAssertions.expect_url_contains(checkout_overview_page.page, RelativeUri.checkout_step_two_page.value)
+
     def __calculate_tax__(self, product_price) -> float:
         calculated_tax = round(product_price * 0.08, 2)
         return calculated_tax

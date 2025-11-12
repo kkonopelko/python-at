@@ -18,3 +18,8 @@ SHIPPING_INFORMATION_TEXT = "Free Pony Express Delivery!"
 ITEM_TOTAL_TEXT = lambda item_total: f"Item total: ${item_total:.2f}"
 TAX_TEXT = lambda tax: f"Tax: ${tax:.2f}"
 TOTAL = lambda item_total, tax: f"Total: ${item_total + tax:.2f}"
+
+# Checkout information page
+FIRST_NAME_ERROR_MESSAGE = "Error: First Name is required"
+LAST_NAME_ERROR_MESSAGE = "Error: Last Name is required"
+POSTAL_CODE_ERROR_MESSAGE = "Error: Postal Code is required"
